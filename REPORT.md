@@ -1,7 +1,7 @@
 # MINI-PROJECT SHORT TECHNICAL REPORT
 **Course:** Cross-Platform Mobile App Development (VKU)  
 **Mini-Project Title:** VKU Field Survey — Offline-First Campus Facility Inspection PWA with Capacitor Android Bridge  
-**Team / Student Name:** Lê Hữu Thái — 23IT.EB091
+**Team / Student Name:** Lê Hữu Thái — 23IT.EB091  
 **Submission Date:** 25/09/2026  
 
 ---
@@ -95,19 +95,19 @@ vku-field-survey/
 ## 4. EMPIRICAL EVIDENCE & SCREENSHOTS
 
 ### Screenshot 1: Dashboard View
-![Dashboard View](../screenshots/01-dashboard.png)
+![Dashboard View](screenshots/01-dashboard.png)
 *Figure 1: Dashboard displaying live network status badge, facility inspection summary metrics (Total, Synced, Pending Sync, Failed), building quick-filters (Buildings A, B, C, D, K), and recent inspection activity cards.*
 
 ### Screenshot 2: Multi-Step Inspection Wizard
-![Multi-Step Inspection Wizard](../screenshots/02-inspection-form.png)
+![Multi-Step Inspection Wizard](screenshots/02-inspection-form.png)
 *Figure 2: Step 4 of the 6-step Inspection Wizard showing Condition Rating selection (1 to 5 stars), defect description text input, progress bar, and persistent auto-save state.*
 
 ### Screenshot 3: Offline Submission Queued (`PENDING_SYNC`)
-![Offline Submission Queued](../screenshots/03-offline-pending.png)
+![Offline Submission Queued](screenshots/03-offline-pending.png)
 *Figure 3: Submission completed while offline. The item is saved locally to IndexedDB with status `PENDING_SYNC` and queued in the Sync Queue awaiting network restoration.*
 
 ### Screenshot 4: Automatic Synchronization & Verification (`SYNCED`)
-![Automatic Synchronization](../screenshots/04-sync-success.png)
+![Automatic Synchronization](screenshots/04-sync-success.png)
 *Figure 4: Connection restored. The sequential sync queue successfully dispatches the queued inspection payload, updating state to `SYNCED` with zero data loss.*
 
 ---
@@ -138,7 +138,7 @@ vku-field-survey/
 | **IndexedDB Durability** | `src/storage/indexedDb.ts` | **PASS** | `inspections`, `syncQueue`, and `appMetadata` object stores verified for persistence and draft retention. |
 | **Offline Sync Flow** | `src/sync/syncQueue.ts` | **PASS** | State transitions (`PENDING_SYNC -> SYNCING -> SYNCED / FAILED`) verified via automated tests and manual network toggling. |
 | **Capacitor Configuration** | `npx cap sync android` | **PASS** | Capacitor CLI 7.6.9, Android platform 7.6.9, `@capacitor/camera@7.0.5`, `@capacitor/network@7.0.4` synced. |
-| **Android APK Build** | `./gradlew assembleDebug` | **PASS** | Compiled debug APK generated at `android/app/build/outputs/apk/debug/app-debug.apk`  |
+| **Android APK Build** | `./gradlew assembleDebug` | **PASS** | Compiled debug APK generated at `android/app/build/outputs/apk/debug/app-debug.apk` |
 | **Android Device Installation** | Physical device / emulator install | **NOT PERFORMED** | No physical Android device or emulator was connected or available during verification. Native build compiled successfully. |
-| **Git Repository** | `git status` / GitHub remote | **PASS** | Repository public at [https://github.com/HuuThai127/vku-field-survey] |
-| **Live Web Deployment** | Vercel production hosting | **PASS** | Public HTTPS deployment active and verified at [https://vku-field-survey-lehuuthai57-4276.vercel.app/] |
+| **Git Repository** | `git status` / GitHub remote | **PASS** | Repository public at [https://github.com/HuuThai127/vku-field-survey](https://github.com/HuuThai127/vku-field-survey), branch `main`, working tree clean. |
+| **Live Web Deployment** | Vercel production hosting | **PASS** | Public HTTPS deployment active and verified at [https://vku-field-survey-lehuuthai57-4276.vercel.app/](https://vku-field-survey-lehuuthai57-4276.vercel.app/). |

@@ -2,95 +2,368 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>VKU Field Survey — Technical Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VKU Field Survey — Mini-Project Short Technical Report</title>
   <style>
-    @page { size: A4; margin: 20mm; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.5; color: #1e293b; background: #fff; max-width: 800px; margin: 0 auto; padding: 24px; }
-    h1 { color: #0284c7; border-bottom: 2px solid #0284c7; padding-bottom: 8px; font-size: 22px; margin-top: 0; }
-    h2 { color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; font-size: 16px; margin-top: 24px; }
-    h3 { color: #334155; font-size: 14px; margin-top: 16px; }
-    table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
-    th, td { border: 1px solid #cbd5e1; padding: 6px 10px; text-align: left; }
-    th { background: #f1f5f9; font-weight: 700; color: #0f172a; }
-    code { background: #f1f5f9; padding: 2px 5px; border-radius: 4px; font-family: Consolas, monospace; font-size: 11px; }
-    pre { background: #0f172a; color: #f8fafc; padding: 12px; border-radius: 6px; font-size: 11px; overflow-x: auto; }
-    .badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+    @page { size: A4; margin: 18mm; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+      color: #1e293b;
+      background: #fff;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    h1 {
+      color: #0284c7;
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 8px;
+      font-size: 20px;
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+    h2 {
+      color: #0f172a;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 4px;
+      font-size: 15px;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    h3 {
+      color: #334155;
+      font-size: 13px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+    p, li {
+      font-size: 12px;
+    }
+    .meta-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 11.5px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    code {
+      background: #f1f5f9;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-family: Consolas, Menlo, Monaco, monospace;
+      font-size: 11px;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: Consolas, Menlo, Monaco, monospace;
+      font-size: 11px;
+      line-height: 1.4;
+      overflow-x: auto;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+    }
     .badge-pass { background: #dcfce7; color: #166534; }
-    .meta-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; margin-bottom: 16px; font-size: 12px; }
+    .badge-warn { background: #fef3c7; color: #92400e; }
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .screenshot-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f8fafc;
+      padding: 8px;
+    }
+    .screenshot-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      display: block;
+      border: 1px solid #cbd5e1;
+    }
+    .screenshot-caption {
+      font-size: 11px;
+      color: #475569;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    a {
+      color: #0284c7;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>VKU FIELD SURVEY — TECHNICAL REPORT</h1>
-  <p><strong>Offline-First Campus Facility Inspection PWA with Capacitor Android Bridge</strong></p>
 
+  <h1>MINI-PROJECT SHORT TECHNICAL REPORT</h1>
   <div class="meta-box">
-    <strong>Institution:</strong> Vietnam - Korea University of Information and Communication Technology (VKU)<br>
-    <strong>Course:</strong> Mobile Application & Modern Web Development Mini-Project<br>
-    <strong>Project Title:</strong> VKU Field Survey<br>
-    <strong>Date:</strong> September 2026<br>
-    <strong>Architecture:</strong> Offline-First PWA (HTML5, Vanilla TypeScript, CSS) + Capacitor 7 Android
+    <strong>Course:</strong> Cross-Platform Mobile App Development (VKU)<br>
+    <strong>Mini-Project Title:</strong> VKU Field Survey — Offline-First Campus Facility Inspection PWA with Capacitor Android Bridge<br>
+    <strong>Team / Student Name:</strong> Lê Hữu Thái — 23IT.EB091<br>
+    <strong>Submission Date:</strong> 25/09/2026
   </div>
 
-  <h2>1. Executive Summary & Problem Definition</h2>
-  <p>Facility maintenance and student auditing teams at VKU frequently conduct asset reviews in campus basements, lecture theaters, and lab suites with absent or intermittent internet connectivity. VKU Field Survey solves this through an offline-first architecture with cache-first app shell delivery, local IndexedDB draft auto-saving, sequential offline synchronization queueing, and an installable native Android APK wrapper.</p>
+  <h2>1. GENERAL INFORMATION & DELIVERABLE LINKS</h2>
+  <ul>
+    <li><strong>Team Members:</strong>
+      <ol>
+        <li>Lê Hữu Thái — Student ID: 23IT.EB091 — Role: [Solo Developer / Frontend Architecture & Native Bridge] — Contribution: [100%]</li>
+      </ol>
+    </li>
+    <li><strong>🔗 Live Demo URL:</strong> <a href="https://vku-field-survey-lehuuthai57-4276.vercel.app/" target="_blank">https://vku-field-survey-lehuuthai57-4276.vercel.app/</a></li>
+    <li><strong>💻 GitHub Repository:</strong> <a href="https://github.com/HuuThai127/vku-field-survey" target="_blank">https://github.com/HuuThai127/vku-field-survey</a></li>
+    <li><strong>📦 Compiled Debug APK (Local Build Artifact):</strong> <code>android/app/build/outputs/apk/debug/app-debug.apk</code> (Size: ~6.50 MB / 6,815,773 bytes)</li>
+    <li><strong>🎥 Video Demo (Optional):</strong> <a href="https://drive.google.com/file/d/1p2it_gP0H_YPpVJJ_Gke55EXWm2o7oky/view?usp=sharing" target="_blank">https://drive.google.com/file/d/1p2it_gP0H_YPpVJJ_Gke55EXWm2o7oky/view?usp=sharing</a></li>
+  </ul>
 
-  <h2>2. Learning Objective Verification Mapping</h2>
+  <h2>2. FEATURE IMPLEMENTATION CHECKLIST</h2>
   <table>
     <thead>
       <tr>
-        <th>Learning Objective</th>
-        <th>Specification</th>
-        <th>Implementation File(s)</th>
-        <th>Verification Evidence</th>
+        <th style="width: 5%; text-align: center;">#</th>
+        <th style="width: 30%;">Required Feature</th>
+        <th style="width: 15%; text-align: center;">Status</th>
+        <th style="width: 50%;">Implementation Details & Acceptance Level</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>LO1: Offline-First PWA</strong></td>
-        <td>Standalone manifest, theme #0284c7, 192/512px icons</td>
-        <td><code>public/manifest.json</code>, <code>public/icons/</code></td>
-        <td><span class="badge badge-pass">VERIFIED</span> Passes PWA installability criteria</td>
+        <td style="text-align: center;">1</td>
+        <td><strong>Responsive Mobile UI & Campus Views</strong></td>
+        <td style="text-align: center;"><span class="badge badge-pass">Complete</span></td>
+        <td>Mobile-first viewport layout with sticky header, network badge, bottom navigation, and dedicated views: Dashboard, Multi-Step Inspection Wizard, Sync Queue, Inspection Detail, and Settings.</td>
       </tr>
       <tr>
-        <td><strong>LO2: Cache-First App Shell</strong></td>
-        <td>Service Worker caching and IndexedDB draft storage</td>
-        <td><code>public/sw.js</code>, <code>src/storage/indexedDb.ts</code></td>
-        <td><span class="badge badge-pass">VERIFIED</span> Draft survives browser reload offline</td>
+        <td style="text-align: center;">2</td>
+        <td><strong>100% Offline-First App Shell (PWA)</strong></td>
+        <td style="text-align: center;"><span class="badge badge-pass">Complete</span></td>
+        <td><code>public/sw.js</code> caches all static assets (<code>vku-survey-shell-v1</code>) via a Cache-First strategy. <code>public/manifest.json</code> configures <code>display: standalone</code>, <code>#0284c7</code> theme color, and 192x192 / 512x512 icons. Boots with zero network connectivity.</td>
       </tr>
       <tr>
-        <td><strong>LO3: Offline Sync Queue</strong></td>
-        <td>FIFO queue with automatic dispatch on reconnect</td>
-        <td><code>src/sync/syncQueue.ts</code>, <code>src/sync/serverAdapter.ts</code></td>
-        <td><span class="badge badge-pass">VERIFIED</span> 15 automated Vitest unit tests pass</td>
+        <td style="text-align: center;">3</td>
+        <td><strong>Multi-Step Inspection Wizard & Real-Time Drafting</strong></td>
+        <td style="text-align: center;"><span class="badge badge-pass">Complete</span></td>
+        <td>6-step form: Location (Buildings A, B, C, D, K), Category, Subcategory, Condition Rating (1–5 stars), Defect Notes, and Photo Capture. Every input change auto-saves to IndexedDB (<code>appMetadata.activeDraft</code>), surviving accidental browser refresh or page closure.</td>
       </tr>
       <tr>
-        <td><strong>LO4: Capacitor Android Wrapper</strong></td>
-        <td>Native Android APK with Camera & Network plugins</td>
-        <td><code>capacitor.config.ts</code>, <code>android/</code></td>
-        <td><span class="badge badge-pass">VERIFIED</span> <code>app-debug.apk</code> (6.70 MB) compiled via Gradle</td>
+        <td style="text-align: center;">4</td>
+        <td><strong>Client-Side Persistence via IndexedDB (<code>idb</code>)</strong></td>
+        <td style="text-align: center;"><span class="badge badge-pass">Complete</span></td>
+        <td>Structured local database using <code>idb</code> with three stores: <code>inspections</code> (keyed by UUID), <code>syncQueue</code> (keyed by UUID), and <code>appMetadata</code> (active draft and settings). Automatically seeds deterministic sample data for Buildings A, B, and C on first launch.</td>
+      </tr>
+      <tr>
+        <td style="text-align: center;">5</td>
+        <td><strong>Sequential FIFO Offline Sync Queue</strong></td>
+        <td style="text-align: center;"><span class="badge badge-pass">Complete</span></td>
+        <td>Submissions created offline receive <code>PENDING_SYNC</code> status and enter <code>syncQueue</code>. Upon reconnection or manual sync trigger, items process sequentially: <code>PENDING_SYNC -> SYNCING -> SYNCED</code>. If network/server failure occurs, status transitions to <code>FAILED</code> with retry tracking.</td>
+      </tr>
+      <tr>
+        <td style="text-align: center;">6</td>
+        <td><strong>Capacitor 7 Native Android Integration</strong></td>
+        <td style="text-align: center;"><span class="badge badge-pass">Complete</span></td>
+        <td>Cross-platform bridge configured with Capacitor 7.6.9. <code>@capacitor/network</code> provides native connection status; <code>@capacitor/camera</code> provides native camera capture with web file input fallback. Android project generated and verified with Gradle.</td>
+      </tr>
+      <tr>
+        <td style="text-align: center;">7</td>
+        <td><strong>Automated Unit Testing</strong></td>
+        <td style="text-align: center;"><span class="badge badge-pass">Complete</span></td>
+        <td>Vitest suite containing 15 automated unit tests across 4 test suites (<code>tests/validation.test.ts</code>, <code>tests/storage.test.ts</code>, <code>tests/queue.test.ts</code>, <code>tests/repository.test.ts</code>). All 15 tests pass (15/15 PASS).</td>
       </tr>
     </tbody>
   </table>
 
-  <h2>3. System Architecture & Component Design</h2>
+  <h2>3. TECHNICAL ARCHITECTURE & PROJECT STRUCTURE</h2>
+  <h3>3.1 Architecture Overview</h3>
   <pre>
-[User Interface (Dashboard, Multi-Step Wizard, Queue, Settings)]
-             |
-             +---> [Hardware Abstraction: @capacitor/network, @capacitor/camera]
-             |
-             +---> [Offline Engine: IndexedDB (idb), SyncQueueManager (FIFO)]
-             |
-             +---> [PWA Service Worker: Cache-First App Shell (vku-survey-shell-v1)]
+[Presentation Layer: Vanilla TypeScript UI Components & Pages]
+                          │
+       ┌──────────────────┴──────────────────┐
+       ▼                                     ▼
+[Hardware Abstraction Services]    [Offline & Persistence Engine]
+ - NetworkService                   - InspectionRepository
+   (@capacitor/network / online)     - SyncQueueManager (FIFO Loop)
+ - CameraService                    - DraftStorage (Auto-Save)
+   (@capacitor/camera / <input>)     - IndexedDB (idb wrapper)
+       │                                     │
+       └──────────────────┬──────────────────┘
+                          ▼
+[Platform Delivery: PWA Service Worker (sw.js) & Capacitor Android Shell]
   </pre>
 
-  <h2>4. Core Verification Results</h2>
-  <ul>
-    <li><strong>Vitest Automated Test Suite:</strong> 15 tests executed across 4 test suites (Validation, Storage, Queue, Repository). Result: 100% pass rate.</li>
-    <li><strong>Android Native Build:</strong> Gradle 8.11 with OpenJDK 21 compiled 139 tasks successfully to generate <code>android/app/build/outputs/apk/debug/app-debug.apk</code>.</li>
-    <li><strong>PWA Production Bundle:</strong> Vite 6 production output completed in 467ms (HTML: 1.20 kB, CSS: 11.43 kB, JS: 91.45 kB).</li>
-  </ul>
+  <h3>3.2 Directory Structure</h3>
+  <pre>
+vku-field-survey/
+├── android/                   # Native Android platform project (Gradle wrapper)
+├── public/
+│   ├── icons/                 # PWA application icons (192x192, 512x512)
+│   ├── manifest.json          # PWA web app manifest (standalone, theme #0284c7)
+│   └── sw.js                  # Service Worker with Cache-First app shell caching
+├── report/
+│   ├── technical-report.md    # VKU Course Short Technical Report
+│   └── technical-report.html  # Exported HTML version of technical report
+├── screenshots/               # Empirical evidence captures
+├── src/
+│   ├── components/            # Reusable UI components (Cards, Badges, Header, Rating)
+│   ├── constants/             # Campus buildings (A, B, C, D, K), categories, defaults
+│   ├── pages/                 # Page controllers (Dashboard, NewInspection, Queue, Settings)
+│   ├── services/              # Hardware and repository abstractions (Camera, Network, Repo)
+│   ├── storage/               # IndexedDB setup, draft storage, queue storage
+│   ├── styles/                # Mobile CSS, design tokens, responsive typography
+│   ├── sync/                  # Sequential sync queue and mock server adapter
+│   ├── types/                 # TypeScript interfaces (Inspection, SyncQueueItem, Draft)
+│   ├── utils/                 # UUID generator, date formatting helpers
+│   └── main.ts                # Application router and entry point
+├── tests/                     # 15 Vitest automated test suites
+├── capacitor.config.ts        # Capacitor 7 configuration file
+└── vite.config.ts             # Vite build configuration
+  </pre>
 
-  <h2>5. Conclusion</h2>
-  <p>The VKU Field Survey system fulfills all academic and functional requirements. Offline audit data is protected with zero-loss durability, automatic background sync occurs seamlessly upon connectivity resumption, and the application compiles reliably to both a standalone PWA and a native Android APK.</p>
+  <h3>3.3 Data Flow & State Lifecycle</h3>
+  <p><strong>1. Inspection Drafting:</strong> As the inspector inputs data, changes are immediately committed to IndexedDB (<code>appMetadata.activeDraft</code>).<br>
+  <strong>2. Submission:</strong> Upon submission, the record is assigned <code>PENDING_SYNC</code> and added to both <code>inspections</code> and <code>syncQueue</code> object stores. The active draft is deleted.<br>
+  <strong>3. Queue Processing:</strong> If the device is online, <code>SyncQueueManager</code> triggers an asynchronous FIFO processing loop: state advances to <code>SYNCING</code>; payload is transmitted to <code>ServerAdapter</code>; on success, status transitions to <code>SYNCED</code>; on failure, status transitions to <code>FAILED</code> with error diagnostics.<br>
+  <strong>4. Error Handling:</strong> Form inputs are validated prior to progression. Network dropouts do not discard in-flight records; processing suspends gracefully until connectivity is re-established.</p>
+
+  <h2>4. EMPIRICAL EVIDENCE & SCREENSHOTS</h2>
+  <div class="screenshot-grid">
+    <div class="screenshot-card">
+      <img src="../screenshots/01-dashboard.png" alt="Dashboard View">
+      <div class="screenshot-caption"><strong>Figure 1: Dashboard View</strong> — Live network badge, facility metrics (Total, Synced, Pending Sync, Failed), building filters (A, B, C, D, K), and recent inspection cards.</div>
+    </div>
+    <div class="screenshot-card">
+      <img src="../screenshots/02-inspection-form.png" alt="Multi-Step Inspection Wizard">
+      <div class="screenshot-caption"><strong>Figure 2: Multi-Step Inspection Wizard</strong> — Step 4 Condition Rating selection (1–5 stars), defect description text input, progress bar, and persistent auto-save state.</div>
+    </div>
+    <div class="screenshot-card">
+      <img src="../screenshots/03-offline-pending.png" alt="Offline Submission Queued">
+      <div class="screenshot-caption"><strong>Figure 3: Offline Submission Queued</strong> — Submission completed while offline. Saved locally to IndexedDB with status <code>PENDING_SYNC</code> and queued in Sync Queue.</div>
+    </div>
+    <div class="screenshot-card">
+      <img src="../screenshots/04-sync-success.png" alt="Automatic Synchronization">
+      <div class="screenshot-caption"><strong>Figure 4: Automatic Synchronization</strong> — Connection restored. Sequential sync queue dispatches the queued inspection payload, updating state to <code>SYNCED</code> with zero data loss.</div>
+    </div>
+  </div>
+
+  <h2>5. TECHNICAL CHALLENGES & RESOLUTIONS</h2>
+  <p><strong>5.1 Challenge 1: Offline Persistence & Draft Durability Across Sessions</strong><br>
+  <em>Problem:</em> Field inspectors navigating lecture halls and basements frequently experience accidental browser reloads or device memory pressure, risking loss of multi-step form data and defect notes.<br>
+  <em>Resolution:</em> Implemented an asynchronous draft auto-save pipeline backed by IndexedDB (<code>idb</code>). Each wizard step transition asynchronously saves partial state into the <code>appMetadata</code> store under <code>activeDraft</code>. When an inspector re-opens the wizard, the application detects the persisted draft and automatically restores all fields.</p>
+
+  <p><strong>5.2 Challenge 2: Sequential Offline Synchronization & Reconnection Race Conditions</strong><br>
+  <em>Problem:</em> Rapid intermittent connectivity changes (common when moving between campus Wi-Fi access points) can cause multiple concurrent synchronization triggers, resulting in duplicated transmissions or race conditions.<br>
+  <em>Resolution:</em> Engineered a single-flight FIFO queue processor in <code>src/sync/syncQueue.ts</code> protected by an <code>isProcessing</code> mutual-exclusion flag. Reconnection events from <code>@capacitor/network</code> and window <code>online</code> listeners trigger queue evaluation with a debounce guard. Items are dispatched strictly one-by-one through deterministic lifecycle states (<code>PENDING_SYNC -> SYNCING -> SYNCED / FAILED</code>).</p>
+
+  <p><strong>5.3 Challenge 3: Cross-Platform Native Camera & Network Hardware Abstraction</strong><br>
+  <em>Problem:</em> The application must function seamlessly both as an installable web PWA across desktop/mobile browsers and as a compiled native Android application, each possessing different hardware access capabilities.<br>
+  <em>Resolution:</em> Encapsulated hardware access within abstraction services (<code>src/services/cameraService.ts</code> and <code>src/services/networkService.ts</code>). In Capacitor Android, <code>@capacitor/camera</code> invokes the native camera intent and <code>@capacitor/network</code> monitors system broadcasts. In web browsers, the services gracefully fall back to native HTML5 <code>&lt;input type="file" accept="image/*" capture="environment"&gt;</code> and standard <code>navigator.onLine</code> events.</p>
+
+  <h2>6. VERIFICATION SUMMARY</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Verification Item</th>
+        <th style="width: 25%;">Specification / Command</th>
+        <th style="width: 15%; text-align: center;">Result</th>
+        <th style="width: 35%;">Acceptance Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Web Production Build</strong></td>
+        <td><code>npm run build</code></td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>Vite production bundle generated in <code>dist/</code> in 467ms without compilation errors.</td>
+      </tr>
+      <tr>
+        <td><strong>Automated Unit Tests</strong></td>
+        <td><code>npm test</code> (Vitest)</td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>15/15 tests passing across 4 suites (<code>validation.test.ts</code>, <code>storage.test.ts</code>, <code>queue.test.ts</code>, <code>repository.test.ts</code>).</td>
+      </tr>
+      <tr>
+        <td><strong>PWA Manifest & App Shell</strong></td>
+        <td><code>public/manifest.json</code>, <code>public/sw.js</code></td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>Standalone display mode, theme <code>#0284c7</code>, 192px/512px icons, cache-first Service Worker (<code>vku-survey-shell-v1</code>). Loads offline.</td>
+      </tr>
+      <tr>
+        <td><strong>IndexedDB Durability</strong></td>
+        <td><code>src/storage/indexedDb.ts</code></td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td><code>inspections</code>, <code>syncQueue</code>, and <code>appMetadata</code> object stores verified for persistence and draft retention.</td>
+      </tr>
+      <tr>
+        <td><strong>Offline Sync Flow</strong></td>
+        <td><code>src/sync/syncQueue.ts</code></td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>State transitions (<code>PENDING_SYNC -> SYNCING -> SYNCED / FAILED</code>) verified via automated tests and manual network toggling.</td>
+      </tr>
+      <tr>
+        <td><strong>Capacitor Configuration</strong></td>
+        <td><code>npx cap sync android</code></td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>Capacitor CLI 7.6.9, Android platform 7.6.9, <code>@capacitor/camera@7.0.5</code>, <code>@capacitor/network@7.0.4</code> synced.</td>
+      </tr>
+      <tr>
+        <td><strong>Android APK Build</strong></td>
+        <td><code>./gradlew assembleDebug</code></td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>Compiled debug APK generated at <code>android/app/build/outputs/apk/debug/app-debug.apk</code> (~6.50 MB).</td>
+      </tr>
+      <tr>
+        <td><strong>Android Device Installation</strong></td>
+        <td>Physical device / emulator install</td>
+        <td style="text-align: center;"><span class="badge badge-warn">NOT PERFORMED</span></td>
+        <td>No physical Android device or emulator was connected or available during verification. Native build compiled successfully.</td>
+      </tr>
+      <tr>
+        <td><strong>Git Repository</strong></td>
+        <td><code>git status</code> / GitHub remote</td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>Repository public at <a href="https://github.com/HuuThai127/vku-field-survey" target="_blank">https://github.com/HuuThai127/vku-field-survey</a>, branch <code>main</code>, working tree clean.</td>
+      </tr>
+      <tr>
+        <td><strong>Live Web Deployment</strong></td>
+        <td>Vercel production hosting</td>
+        <td style="text-align: center;"><span class="badge badge-pass">PASS</span></td>
+        <td>Public HTTPS deployment active and verified at <a href="https://vku-field-survey-lehuuthai57-4276.vercel.app/" target="_blank">https://vku-field-survey-lehuuthai57-4276.vercel.app/</a>.</td>
+      </tr>
+    </tbody>
+  </table>
+
 </body>
 </html>
