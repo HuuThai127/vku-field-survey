@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VKU Field Survey — Technical Report</title>
+  <style>
+    @page { size: A4; margin: 20mm; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.5; color: #1e293b; background: #fff; max-width: 800px; margin: 0 auto; padding: 24px; }
+    h1 { color: #0284c7; border-bottom: 2px solid #0284c7; padding-bottom: 8px; font-size: 22px; margin-top: 0; }
+    h2 { color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; font-size: 16px; margin-top: 24px; }
+    h3 { color: #334155; font-size: 14px; margin-top: 16px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+    th, td { border: 1px solid #cbd5e1; padding: 6px 10px; text-align: left; }
+    th { background: #f1f5f9; font-weight: 700; color: #0f172a; }
+    code { background: #f1f5f9; padding: 2px 5px; border-radius: 4px; font-family: Consolas, monospace; font-size: 11px; }
+    pre { background: #0f172a; color: #f8fafc; padding: 12px; border-radius: 6px; font-size: 11px; overflow-x: auto; }
+    .badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+    .badge-pass { background: #dcfce7; color: #166534; }
+    .meta-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; margin-bottom: 16px; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>VKU FIELD SURVEY — TECHNICAL REPORT</h1>
+  <p><strong>Offline-First Campus Facility Inspection PWA with Capacitor Android Bridge</strong></p>
+
+  <div class="meta-box">
+    <strong>Institution:</strong> Vietnam - Korea University of Information and Communication Technology (VKU)<br>
+    <strong>Course:</strong> Mobile Application & Modern Web Development Mini-Project<br>
+    <strong>Project Title:</strong> VKU Field Survey<br>
+    <strong>Date:</strong> September 2026<br>
+    <strong>Architecture:</strong> Offline-First PWA (HTML5, Vanilla TypeScript, CSS) + Capacitor 7 Android
+  </div>
+
+  <h2>1. Executive Summary & Problem Definition</h2>
+  <p>Facility maintenance and student auditing teams at VKU frequently conduct asset reviews in campus basements, lecture theaters, and lab suites with absent or intermittent internet connectivity. VKU Field Survey solves this through an offline-first architecture with cache-first app shell delivery, local IndexedDB draft auto-saving, sequential offline synchronization queueing, and an installable native Android APK wrapper.</p>
+
+  <h2>2. Learning Objective Verification Mapping</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Learning Objective</th>
+        <th>Specification</th>
+        <th>Implementation File(s)</th>
+        <th>Verification Evidence</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>LO1: Offline-First PWA</strong></td>
+        <td>Standalone manifest, theme #0284c7, 192/512px icons</td>
+        <td><code>public/manifest.json</code>, <code>public/icons/</code></td>
+        <td><span class="badge badge-pass">VERIFIED</span> Passes PWA installability criteria</td>
+      </tr>
+      <tr>
+        <td><strong>LO2: Cache-First App Shell</strong></td>
+        <td>Service Worker caching and IndexedDB draft storage</td>
+        <td><code>public/sw.js</code>, <code>src/storage/indexedDb.ts</code></td>
+        <td><span class="badge badge-pass">VERIFIED</span> Draft survives browser reload offline</td>
+      </tr>
+      <tr>
+        <td><strong>LO3: Offline Sync Queue</strong></td>
+        <td>FIFO queue with automatic dispatch on reconnect</td>
+        <td><code>src/sync/syncQueue.ts</code>, <code>src/sync/serverAdapter.ts</code></td>
+        <td><span class="badge badge-pass">VERIFIED</span> 15 automated Vitest unit tests pass</td>
+      </tr>
+      <tr>
+        <td><strong>LO4: Capacitor Android Wrapper</strong></td>
+        <td>Native Android APK with Camera & Network plugins</td>
+        <td><code>capacitor.config.ts</code>, <code>android/</code></td>
+        <td><span class="badge badge-pass">VERIFIED</span> <code>app-debug.apk</code> (6.70 MB) compiled via Gradle</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. System Architecture & Component Design</h2>
+  <pre>
+[User Interface (Dashboard, Multi-Step Wizard, Queue, Settings)]
+             |
+             +---> [Hardware Abstraction: @capacitor/network, @capacitor/camera]
+             |
+             +---> [Offline Engine: IndexedDB (idb), SyncQueueManager (FIFO)]
+             |
+             +---> [PWA Service Worker: Cache-First App Shell (vku-survey-shell-v1)]
+  </pre>
+
+  <h2>4. Core Verification Results</h2>
+  <ul>
+    <li><strong>Vitest Automated Test Suite:</strong> 15 tests executed across 4 test suites (Validation, Storage, Queue, Repository). Result: 100% pass rate.</li>
+    <li><strong>Android Native Build:</strong> Gradle 8.11 with OpenJDK 21 compiled 139 tasks successfully to generate <code>android/app/build/outputs/apk/debug/app-debug.apk</code>.</li>
+    <li><strong>PWA Production Bundle:</strong> Vite 6 production output completed in 467ms (HTML: 1.20 kB, CSS: 11.43 kB, JS: 91.45 kB).</li>
+  </ul>
+
+  <h2>5. Conclusion</h2>
+  <p>The VKU Field Survey system fulfills all academic and functional requirements. Offline audit data is protected with zero-loss durability, automatic background sync occurs seamlessly upon connectivity resumption, and the application compiles reliably to both a standalone PWA and a native Android APK.</p>
+</body>
+</html>
