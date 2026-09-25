@@ -1,0 +1,30 @@
+{
+  "name": "vku-field-survey",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline-First Campus Facility Inspection PWA with Capacitor Android",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cap:sync": "npm run build && cap sync",
+    "cap:build:android": "npm run build && cap sync android && cd android && gradlew assembleDebug && cd .."
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.1",
+    "@capacitor/camera": "^7.0.0",
+    "@capacitor/core": "^7.0.1",
+    "@capacitor/network": "^7.0.0",
+    "idb": "^8.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.1",
+    "fake-indexeddb": "^6.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.1",
+    "vitest": "^3.0.5"
+  }
+}
